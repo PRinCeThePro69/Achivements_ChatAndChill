@@ -64,7 +64,6 @@ client.on("messageCreate", async msg => {
     if(msg.channel.id === "930503731974385697") {
         db.add(`${msg.author.id}_messages`, 1)
         const numMsgs = await db.get(`${msg.author.id}_messages`)
-
         if (numMsgs > 25) {
             const twentyfivemsgsalr = await db.get(`${msg.author.id}_25msgs`)
             if(twentyfivemsgsalr === "true") {
@@ -99,10 +98,51 @@ client.on("messageCreate", async msg => {
            }
         }
     }
-    if(msg.content === "_count") {
+})
+client.on("messageCreate", async msg => {
+    if(msg.channel.id === "930503731974385697") {
+        if(msg.author.bot) return;
+        const numMsgs = await db.get(`${msg.author.id}_messages`)
+        if (numMsgs > 50) {
+            const fiftymsgsalr = await db.get(`${msg.author.id}_50msgs`)
+            if(fiftymsgsalr === "true") {
+            } else {
+            db.add(`${msg.author.id}_achivements`, 1)
+            db.set(`${msg.author.id}_50msgs`, 'true')
+            msg.member.roles.add("936929715422371921")
+            const servMsg3 = new MessageEmbed()
+            .setTitle("Achievement obtained!")
+            .setDescription(msg.author.tag + "Just obtained the achivement: **Semi active**!\nObtained for sending 50 messages in <#930503731974385697>, rarity: uncommon")
+            .setColor("DARK_PURPLE") 
+            
+            client.channels.cache.get('936678943845654638')
+            .send({
+                embeds: [servMsg3]
+            })
+
+            const userMsg3 = new MessageEmbed()
+            .setTitle("Well done!")
+            .setDescription("Congratulations, you got another achivement: **Semi active**!\nObtained for sending 50 messages in <#930503731974385697>, rarity: uncommon")
+            .setFooter("GG")
+            .setColor("PURPLE")
+
+            try {
+                msg.author.send({
+                    embeds: [userMsg3]
+                })
+            } catch {
+                console.log("Failed to DM" + msg.author.tag)
+            }
+           }
+        }
+    }
+})
+client.on("messageCreate", async msg => {
+    if(msg.content.startsWith("_count")) {
         var u = msg.mentions.users.first()
         if (!u) u = msg.author
-        const c = await db.get(`${u.id}_achivements`)
+        var c = await db.get(`${u.id}_achivements`)
+        if(c === "null") c = "0"
             const e = new MessageEmbed()
             .setTitle("Achivement count")
             .setDescription(u.tag + ` has ${c} achivements!`)
@@ -118,13 +158,36 @@ client.on("messageCreate", async msg => {
             const evalers = ["689173890450194434"]
             if(!evalers.includes(msg.author.id)) return msg.reply("Permission denied!")
             try {
-                const evaled = eval(args.join(" "));
+                eval(args.join(" "));
                 msg.channel.send("Done")
               } catch (err) {
                 msg.channel.send("An error occoured" + "\`\`\`\n"+err+"\n\`\`\`" );
               }
-        }
-    }
+        } else {
+            if(msg.content === "_achivements") {
+                var joined = await db.get(`${msg.author.id}_joined`)
+                if(joined === "null") joined = "No"
+                var msgsSent = await db.get(`${msg.author.id}_messages`)
+                if(msgsSent === "null") msgsSent = "0"
+                var sent25msgs = await db.get(`${msg.author.id}_25msgs`)
+                if(sent25msgs === "null") sent25msgs = `No (${msgsSent}\/25)`
+                var sent50msgs = await db.get(`${msg.author.id}_50msgs`)
+                if(sent50msgs === "null") sent50msgs = `No (${msgsSent}\/50)`
+                var omo = await db.get(`${msg.author.id}_omoSent`)
+                if (omo === "null") omo = "No (change that by sending a message in <#934082965774925824>"
+                var c = await db.get(`${msg.author.id}_achivements`)
+                if(c === "null") c = "0"
+                const e = new MessageEmbed()
+                .setTitle("Your achivements")
+                .setDescription(`Joined: ${joined}\nMessages sent: ${msgsSent}\nSent 25 messages: ${sent25msgs}\nSent 50 messages: ${sent50msgs}\nSent a message in one message only: ${omo}\nTotal obtained: ${c}`)
+                .setColor("DARK_BLUE")
+
+                msg.reply({
+                    embeds: [e]
+                })
+            }
+    } 
+}
 })
 
 client.on("messageCreate", msg => {
