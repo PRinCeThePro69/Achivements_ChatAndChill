@@ -228,37 +228,37 @@ client.on("messageCreate", async msg => {
          
           await  db.add(`${msg.author.id}_counts`, 1)
         const numCount = await db.get(`${msg.author.id}_counts`)
-        if (numCount > 50) {
+        if (numCount >= 50) {
             const fiftycountalr = await db.get(`${msg.author.id}_50counts`)
             if(fiftycountalr === "true") {
                 return;
-            } 
-        } else {
-            const servMsg2 = new MessageEmbed()
-            .setTitle("Achivement obtained!")
-            .setDescription(msg.author.tag + " Just obtained the achivement: **One message**!\nObtained for sending a message in <#934082965774925824>, rarity: common")
-            .setColor("DARK_PURPLE")
-            await   db.add(`${msg.author.id}_achivements`, 1)
-            db.set(`${msg.author.id}_50counts`, 'true')
-            msg.member.roles.add("937312047069298718")
-            client.channels.cache.get('936678943845654638')
-            .send({
-                embeds: [servMsg2]
-            })
-
-            const userMsg2 = new MessageEmbed()
-            .setTitle("Well done!")
-            .setDescription("Congratulations, you got another achivement: **One message**!\nObtained for sending a message in <#934082965774925824>, rarity: common")
-            .setColor("PURPLE")
-
-            try {
-                msg.author.send({
-                embeds: [userMsg2]
+            }  else {
+                const servMsg3 = new MessageEmbed()
+                .setTitle("Achivement obtained!")
+                .setDescription(msg.author.tag + " Just obtained the achivement: **Intermediate Counter**!\nObtained for counting 50 numbers in <#931612320222838825>, rarity: uncommon")
+                .setColor("DARK_PURPLE")
+                await   db.add(`${msg.author.id}_achivements`, 1)
+                db.set(`${msg.author.id}_50counts`, 'true')
+                msg.member.roles.add("937312047069298718")
+                client.channels.cache.get('936678943845654638')
+                .send({
+                    embeds: [servMsg3]
                 })
-            } catch {
-                console.log("Failed to DM " + msg.author.tag)
+    
+                const userMsg3 = new MessageEmbed()
+                .setTitle("Well done!")
+                .setDescription("Congratulations, you got another achivement: **Intermediate Counter**!\nObtained for counting 50 numbers in <#931612320222838825>, rarity: uncommon")
+                .setColor("PURPLE")
+    
+                try {
+                    msg.author.send({
+                    embeds: [userMsg3]
+                    })
+                } catch {
+                    console.log("Failed to DM " + msg.author.tag)
+                }
             }
-        }
+        } 
             
     }
 })
