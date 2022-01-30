@@ -184,8 +184,9 @@ client.on("messageCreate", async msg => {
 
 
                 const e = new MessageEmbed()
-                .setTitle("Your achivements")
-                .setDescription(`Joined: ${joined}\nMessages sent: ${msgsSent}\nSent 25 messages: ${sent25msgs}\nSent 50 messages: ${sent50msgs}\nSent a message in one message only: ${omo}\nCounted 50 numbers: ${sent50count}\nTotal obtained: ${c}`)
+                .setTitle("Your achievements")
+                .setDescription('All the achievements stats you can get.')
+                .addField("Achievements", `Joined: ${joined}\nMessages sent: ${msgsSent}\nSent 25 messages: ${sent25msgs}\nSent 50 messages: ${sent50msgs}\nSent a message in one message only: ${omo}\nCounted 50 numbers: ${sent50count}\nTotal obtained: ${c}`)
                 .setColor("DARK_BLUE")
 
                 msg.reply({
