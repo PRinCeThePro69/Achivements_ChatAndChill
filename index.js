@@ -164,7 +164,7 @@ client.on("messageCreate", async msg => {
                 msg.channel.send("An error occoured" + "\`\`\`\n"+err+"\n\`\`\`" );
               }
         } else {
-            if(msg.content === "_achivements") {
+            if(msg.content === "_achievements") {
                 var joined = await db.get(`${msg.author.id}_joined`)
                 if(joined === null) joined = "false"
                 var msgsSent = await db.get(`${msg.author.id}_messages`)
