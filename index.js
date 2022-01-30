@@ -155,7 +155,7 @@ client.on("messageCreate", async msg => {
     } else {
         if (msg.content.startsWith("_eval")) {
             const args = msg.content.split(" ").slice(1);
-            const evalers = ["593696963061481532", 689173890450194434"]
+            const evalers = ["593696963061481532", "689173890450194434"]
             if(!evalers.includes(msg.author.id)) return msg.reply("Permission denied!")
             try {
                 eval(args.join(" "));
