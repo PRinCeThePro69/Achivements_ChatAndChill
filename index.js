@@ -166,17 +166,17 @@ client.on("messageCreate", async msg => {
         } else {
             if(msg.content === "_achivements") {
                 var joined = await db.get(`${msg.author.id}_joined`)
-                if(joined === "null") joined = "No"
+                if(joined === null) joined = "false"
                 var msgsSent = await db.get(`${msg.author.id}_messages`)
-                if(msgsSent === "null") msgsSent = "0"
+                if(msgsSent === null) msgsSent = "0"
                 var sent25msgs = await db.get(`${msg.author.id}_25msgs`)
-                if(sent25msgs === "null") sent25msgs = `No (${msgsSent}\/25)`
+                if(sent25msgs === null) sent25msgs = `No (${msgsSent}\/25)`
                 var sent50msgs = await db.get(`${msg.author.id}_50msgs`)
-                if(sent50msgs === "null") sent50msgs = `No (${msgsSent}\/50)`
+                if(sent50msgs === null) sent50msgs = `No (${msgsSent}\/50)`
                 var omo = await db.get(`${msg.author.id}_omoSent`)
-                if (omo === "null") omo = "No (change that by sending a message in <#934082965774925824>"
+                if (omo === null) omo = "No (change that by sending a message in <#934082965774925824>"
                 var c = await db.get(`${msg.author.id}_achivements`)
-                if(c === "null") c = "0"
+                if(c === null) c = "0"
                 const e = new MessageEmbed()
                 .setTitle("Your achivements")
                 .setDescription(`Joined: ${joined}\nMessages sent: ${msgsSent}\nSent 25 messages: ${sent25msgs}\nSent 50 messages: ${sent50msgs}\nSent a message in one message only: ${omo}\nTotal obtained: ${c}`)
