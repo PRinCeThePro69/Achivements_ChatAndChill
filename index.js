@@ -193,7 +193,7 @@ msg.reply("It's _achievements")
 }
     }
 
-}
+
 
 })
 
@@ -236,7 +236,7 @@ client.on("messageCreate", async msg => {
             if(fiftycountalr === "true") {
                 return;
             }  else {
-                const servMsg3 = new MessageEmbed()
+                const servMsg4 = new MessageEmbed()
                 .setTitle("Achivement obtained!")
                 .setDescription(msg.author.tag + " Just obtained the achivement: **Intermediate Counter**!\nObtained for counting 50 numbers in <#931612320222838825>, rarity: uncommon")
                 .setColor("DARK_PURPLE")
@@ -248,7 +248,7 @@ client.on("messageCreate", async msg => {
                     embeds: [servMsg3]
                 })
     
-                const userMsg3 = new MessageEmbed()
+                const userMsg4 = new MessageEmbed()
                 .setTitle("Well done!")
                 .setDescription("Congratulations, you got another achivement: **Intermediate Counter**!\nObtained for counting 50 numbers in <#931612320222838825>, rarity: uncommon")
                 .setColor("PURPLE")
