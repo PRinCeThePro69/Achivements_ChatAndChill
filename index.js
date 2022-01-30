@@ -174,12 +174,18 @@ client.on("messageCreate", async msg => {
                 var sent50msgs = await db.get(`${msg.author.id}_50msgs`)
                 if(sent50msgs === null) sent50msgs = `No (${msgsSent}\/50)`
                 var omo = await db.get(`${msg.author.id}_omoSent`)
-                if (omo === null) omo = "No (change that by sending a message in <#934082965774925824>"
+                if (omo === null) omo = "No (change that by sending a message in <#934082965774925824>)"
                 var c = await db.get(`${msg.author.id}_achivements`)
-                if(c === null) c = "0"
+                if(c === null) c = "0";
+                var countSent = await db.get(`${msg.author.id}_counts`)
+                var sent50count = await db.get(`${msg.author.id}_50counts`)
+                if(sent50count === null) sent50count = `No (${countSent}/50)`
+               
+
+
                 const e = new MessageEmbed()
                 .setTitle("Your achivements")
-                .setDescription(`Joined: ${joined}\nMessages sent: ${msgsSent}\nSent 25 messages: ${sent25msgs}\nSent 50 messages: ${sent50msgs}\nSent a message in one message only: ${omo}\nTotal obtained: ${c}`)
+                .setDescription(`Joined: ${joined}\nMessages sent: ${msgsSent}\nSent 25 messages: ${sent25msgs}\nSent 50 messages: ${sent50msgs}\nSent a message in one message only: ${omo}\nCounted 50 numbers: ${sent50count}\nTotal obtained: ${c}`)
                 .setColor("DARK_BLUE")
 
                 msg.reply({
