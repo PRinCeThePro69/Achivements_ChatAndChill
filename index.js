@@ -142,7 +142,7 @@ client.on("messageCreate", async msg => {
         var u = msg.mentions.users.first()
         if (!u) u = msg.author
         var c = await db.get(`${u.id}_achivements`)
-        if(c === "null") c = "0"
+        if(c === null) c = "0"
             const e = new MessageEmbed()
             .setTitle("Achivement count")
             .setDescription(u.tag + ` has ${c} achivements!`)
@@ -192,6 +192,9 @@ msg.reply("It's _achievements")
     } 
 }
     }
+
+}
+
 })
 
 client.on("messageCreate", msg => {
