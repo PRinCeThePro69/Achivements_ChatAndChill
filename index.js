@@ -181,7 +181,9 @@ client.on("messageCreate", async msg => {
                 if(countSent === null) countSent = '0';
                 var sent50count = await db.get(`${msg.author.id}_50counts`)
                 if(sent50count === null) sent50count = `No (${countSent}/50)`
-                
+
+                var sent50count = await db.get(`${msg.author.id}_50counts`)
+                if(sent50count === null) sent50count = `No (${countSent}/50)`
 
 
                 const e = new MessageEmbed()
