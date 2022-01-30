@@ -174,12 +174,18 @@ client.on("messageCreate", async msg => {
                 var sent50msgs = await db.get(`${msg.author.id}_50msgs`)
                 if(sent50msgs === null) sent50msgs = `No (${msgsSent}\/50)`
                 var omo = await db.get(`${msg.author.id}_omoSent`)
-                if (omo === null) omo = "No (change that by sending a message in <#934082965774925824>"
+                if (omo === null) omo = "No (change that by sending a message in <#934082965774925824>)"
                 var c = await db.get(`${msg.author.id}_achivements`)
-                if(c === null) c = "0"
+                if(c === null) c = "0";
+                var countSent = await db.get(`${msg.author.id}_counts`)
+                var sent50count = await db.get(`${msg.author.id}_50counts`)
+                if(sent50count === null) sent50count = `No (${countSent}/50)`
+               
+
+
                 const e = new MessageEmbed()
                 .setTitle("Your achivements")
-                .setDescription(`Joined: ${joined}\nMessages sent: ${msgsSent}\nSent 25 messages: ${sent25msgs}\nSent 50 messages: ${sent50msgs}\nSent a message in one message only: ${omo}\nTotal obtained: ${c}`)
+                .setDescription(`Joined: ${joined}\nMessages sent: ${msgsSent}\nSent 25 messages: ${sent25msgs}\nSent 50 messages: ${sent50msgs}\nSent a message in one message only: ${omo}\nCounted 50 numbers: ${sent50count}\nTotal obtained: ${c}`)
                 .setColor("DARK_BLUE")
 
                 msg.reply({
@@ -191,7 +197,10 @@ msg.reply("It's _achievements")
                 }
     } 
 }
-}
+    }
+
+
+
 })
 
 client.on("messageCreate", msg => {
@@ -221,6 +230,45 @@ client.on("messageCreate", msg => {
             } catch {
                 console.log("Failed to DM " + msg.author.tag)
             }
+    }
+})
+client.on("messageCreate", async msg => {
+    if(msg.channel.id === "931612320222838825") {
+         
+          await  db.add(`${msg.author.id}_counts`, 1)
+        const numCount = await db.get(`${msg.author.id}_counts`)
+        if (numCount >= 50) {
+            const fiftycountalr = await db.get(`${msg.author.id}_50counts`)
+            if(fiftycountalr === "true") {
+                return;
+            }  else {
+                const servMsg4 = new MessageEmbed()
+                .setTitle("Achivement obtained!")
+                .setDescription(msg.author.tag + " Just obtained the achivement: **Intermediate Counter**!\nObtained for counting 50 numbers in <#931612320222838825>, rarity: uncommon")
+                .setColor("DARK_PURPLE")
+                await   db.add(`${msg.author.id}_achivements`, 1)
+                db.set(`${msg.author.id}_50counts`, 'true')
+                msg.member.roles.add("937312047069298718")
+                client.channels.cache.get('936678943845654638')
+                .send({
+                    embeds: [servMsg3]
+                })
+    
+                const userMsg4 = new MessageEmbed()
+                .setTitle("Well done!")
+                .setDescription("Congratulations, you got another achivement: **Intermediate Counter**!\nObtained for counting 50 numbers in <#931612320222838825>, rarity: uncommon")
+                .setColor("PURPLE")
+    
+                try {
+                    msg.author.send({
+                    embeds: [userMsg3]
+                    })
+                } catch {
+                    console.log("Failed to DM " + msg.author.tag)
+                }
+            }
+        } 
+            
     }
 })
 client.login(process.env.token)
