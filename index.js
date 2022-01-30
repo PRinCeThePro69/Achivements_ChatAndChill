@@ -185,7 +185,10 @@ client.on("messageCreate", async msg => {
                 msg.reply({
                     embeds: [e]
                 })
-            }
+            } else {
+                if(msg.content === "_achivements"){
+msg.reply("It's _achievements")
+                }
     } 
 }
 })
